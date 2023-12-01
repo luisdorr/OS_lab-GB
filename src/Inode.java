@@ -43,9 +43,9 @@ class Inode {
 
     public String inodeInfo() {
         if (this.isDirectory) {
-            return "  Size: " + this.size + "               Blocks: " + this.blockCount + "               directory\nAccess: (" + this.buildPermissionStringFormat() + ")    Uid: " + this.ownerId + "\nAccess: " + this.lastAccessedDate + "\nModify: " + this.lastModifiedDate + "\n Birth: " + this.createdDate;
+            return "  Size: " + this.size + "               Blocks: " + this.blockCount + "               directory\nAccess: (" + this.buildPermissionStringFormat() + ")     Uid: " + this.ownerId + "\nAccess: " + this.lastAccessedDate + "\nModify: " + this.lastModifiedDate + "\n Birth: " + this.createdDate;
         } else {
-            return "  Size: " + this.size + "               Blocks: " + this.blockCount + "               file\nAccess: (" + this.buildPermissionStringFormat() + ")    Uid: " + this.ownerId + "\nAccess: " + this.lastAccessedDate + "\nModify: " + this.lastModifiedDate + "\n Birth: " + this.createdDate;
+            return "  Size: " + this.size + "               Blocks: " + this.blockCount + "               file\nAccess: (" + this.buildPermissionStringFormat() + ")     Uid: " + this.ownerId + "\nAccess: " + this.lastAccessedDate + "\nModify: " + this.lastModifiedDate + "\n Birth: " + this.createdDate;
         }
     }
 

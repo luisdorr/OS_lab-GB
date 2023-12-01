@@ -1,8 +1,9 @@
 import java.util.Arrays;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class Terminal {
-    private FileSystem fileSystem;
+    private final FileSystem fileSystem;
 
     public Terminal() {
         fileSystem = new FileSystem(65536);
@@ -30,7 +31,7 @@ public class Terminal {
                 continue;
             }
 
-            switch (inputCommand) {
+            switch (Objects.requireNonNull(inputCommand)) {
                 case "exit":
                     fileSystem.exit();
                     break;
@@ -55,7 +56,17 @@ public class Terminal {
                     break;
                 case "write":
                     if (checkArgs(commandArgs, 2)) {
-                        fileSystem.writeContent(commandArgs[0], commandArgs[1]);
+                        String lastContent = commandArgs[commandArgs.length - 1];
+                        if(commandArgs[1].charAt(0) == '\'' && lastContent.charAt(lastContent.length() - 1) == '\'') {
+                            StringBuilder content = new StringBuilder();
+                            for(int arg = 1; arg < commandArgs.length; arg++) {
+                                content.append(commandArgs[arg]).append(" ");
+                            }
+                            fileSystem.writeContent(commandArgs[0], content.toString());
+                        } else {
+                            fileSystem.writeContent(commandArgs[0], commandArgs[1]);
+                        }
+
                     }
                     break;
                 case "cat":
@@ -83,7 +94,7 @@ public class Terminal {
                     break;
                 case "adduser":
                     if (checkArgs(commandArgs, 3)) {
-                        boolean isAdmin = commandArgs.length > 3 ? Boolean.parseBoolean(commandArgs[3]) : false;
+                        boolean isAdmin = commandArgs.length > 3 && Boolean.parseBoolean(commandArgs[3]);
                         fileSystem.adduser(commandArgs[0], commandArgs[1], commandArgs[2], isAdmin);
                     }
                     break;
@@ -137,6 +148,8 @@ public class Terminal {
                     break;
                 case "":
                     continue;
+                case "clear":
+                    System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
                 default:
                     if (fileSystem.currentUserId != null) {
                         System.out.println("Command not recognized");
